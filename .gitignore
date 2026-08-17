@@ -1,2 +1,6 @@
 .DS_Store
 /Manifest*.toml
+[0-9]*.jl
+*.pdf
+*.png
+
