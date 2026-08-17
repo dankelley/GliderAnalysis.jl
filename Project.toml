@@ -1,9 +1,19 @@
 name = "GliderAnalysis"
 uuid = "e51f8d11-3fc3-46ad-ab4b-d2d7db6d6da8"
-authors = ["dankelley <kelley.dan@gmail.com> and contributors"]
 version = "1.0.0-DEV"
+authors = ["dankelley <kelley.dan@gmail.com> and contributors"]
+
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+GMT = "5752ebe1-31b9-557e-87aa-f909b540aa54"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
+CSV = "0.10.16"
+DataFrames = "1.8.2"
+GMT = "1.42.2"
+Plots = "1.41.0"
 julia = "1.10.10"
 
 [extras]
