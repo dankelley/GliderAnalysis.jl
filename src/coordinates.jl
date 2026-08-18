@@ -5,7 +5,7 @@
 #<R> )
 
 using DataFrames, CSV, Plots
-using GMT: lonlat2xy
+using GMT: lonlat2xy, xy2lonlat
 
 """
     transect_xy(longitude, latitude; case)
@@ -56,37 +56,48 @@ Plots.plot(a, b, layout=(1, 2), size=(800, 500))
 ```
 
 """
-function transect_xy(longitude, latitude; inverse=false, case=:halifax_line)
-    if inverse == false
-        if case == :halifax_line
-            case = (longitude0=-63.507773, latitude0=44.623249, angle=59.1879, srs="EPSG:32620")
-        elseif !isa(case, NamedTuple)
-            error("if case is not a Symbol, then it must be a NamedTuple")
-        end
-        length(case) == 4 || error("case must be a NamedTuple with 4 elements")
-        if (:angle, :latitude0, :longitude0, :srs) != sort(keys(case))
-            error("case elements must be named 'longitude0`, `latitude0`, `angle` and `srs`")
-        end
-        xy0 = 0.001 * lonlat2xy([case.longitude0 case.latitude0], t_srs=case.srs)
-        xy = 0.001 * lonlat2xy(hcat(longitude, latitude), t_srs=case.srs) .- xy0
+function transect_xy(longitude, latitude; inverse=false, case=:halifax_line, debug=0)
+    indent = repeat("  ", debug)
+    debug == 0 || println("$indent transect_xy() START")
+    isa(inverse, Bool) || error("'inverse' must be a Bool value")
+    # set up parameters
+    if case == :halifax_line
+        case = (longitude0=-63.507773, latitude0=44.623249, angle=59.1879, srs="EPSG:32620")
+    elseif !isa(case, NamedTuple)
+        error("if case is not a Symbol, then it must be a NamedTuple")
+    end
+    length(case) == 4 || error("case must be a NamedTuple with 4 elements")
+    if (:angle, :latitude0, :longitude0, :srs) != sort(keys(case))
+        error("case elements must be named 'longitude0`, `latitude0`, `angle` and `srs`")
+    end
+    xy0 = 0.001 * lonlat2xy([case.longitude0 case.latitude0], t_srs=case.srs)
+    debug == 0 || println("$indent   case=$case")
+    if inverse
+        debug == 0 || println("$indent   processing inverse=true case")
+        θ = -case.angle * pi / 180.0
+        R = [cos(θ) -sin(θ); sin(θ) cos(θ)]
+        debug == 0 || println("$indent   computed rotation matrix $(round.(R,digits=3))")
+        xy = hcat(longitude, latitude) # lon and lat are actually x and y in inverse case
+        xy = xy * R' .+ xy0
+        debug == 0 || println("$indent   about to call xy2lonlat() to compute lonlat")
+        lonlat = xy2lonlat(1000.0 * xy, s_srs=case.srs, t_srs="+proj=longlat +datum=WGS84")
+        debug == 0 || println("$indent END transect_xy()")
+        return lonlat
+    else
+        debug == 0 || println("$indent   processing inverse=false (i.e. default) case")
         θ = case.angle * pi / 180.0
         R = [cos(θ) -sin(θ); sin(θ) cos(θ)]
-        return xy * R'
-    else
-        error("only inverse=false is handled by this function (so far)")
+        debug == 0 || println("$indent   computed rotation matrix $(round.(R,digits=3))")
+        ll = hcat(longitude, latitude)
+        debug == 0 || println("$indent   about to call lonlat2xy2() to compute xy")
+        xy = 0.001 * lonlat2xy(ll, t_srs=case.srs) .- xy0
+        debug == 0 || println("$indent   about to rotate xy matrix")
+        rval = xy * R'
+        debug == 0 || println("$indent END transect_xy()")
+        return rval
     end
 end
 export transect_xy
-
-#<<>> f = "/Users/kelley/sbloom_2023_traj.csv"
-#<<>> traj = CSV.read(f, DataFrame);
-#<<>> xy = transect_xy(traj.longitude, traj.latitude)
-#<<>> fs = 7
-#<<>> KW = (framestyle=:box, tickdirection=:out, label=false, ms=1, guidefontsize=fs, tickfontsize=fs, titlefontsize=fs)
-#<<>> a = scatter(traj.longitude, traj.latitude, aspect_ratio=1.4, xlab="Longitude", ylab="Latitude", title=f; KW...)
-#<<>> b = scatter(xy[:, 1], xy[:, 2], aspect_ratio=1.0, xlab="Easting [km]", ylab="Northing [km]", title="Using transect_xy()"; KW...)
-#<<>> plot(a, b, layout=(1, 2), size=(800, 500))
-#<<>> savefig("library_01.pdf")
 
 #```julia
 #using GMT

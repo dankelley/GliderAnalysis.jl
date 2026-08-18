@@ -1,0 +1,49 @@
+# Some of the contents of the present file mimic a corresponding make.jl file,
+# https://github.com/ufechner7/FLORIDyn.jl/blob/main/docs/make.jl, the author
+# of which patiently and generously helped me to learn how to build Julia
+# documentation.
+
+# Next from https://raw.githubusercontent.com/JuliaManifolds/Manopt.jl/72ecc6d72bc191de273506af75bef215fc836191/docs/make.jl
+if Base.active_project() != joinpath(@__DIR__, "Project.toml")
+    using Pkg
+    Pkg.activate(@__DIR__)
+    Pkg.develop(PackageSpec(; path=(@__DIR__) * "/../"))
+    Pkg.resolve()
+    Pkg.instantiate()
+end
+
+using Documenter, GliderAnalysis
+import Plots
+
+DocMeta.setdocmeta!(GliderAnalysis, :DocTestSetup, :(using GliderAnalysis); recursive=true)
+
+makedocs(;
+    modules=[GliderAnalysis],
+    authors="Dan Kelley",
+    repo=Documenter.Remotes.GitHub("dankelley", "GliderAnalysis.jl"),
+    sitename="GliderAnalysis.jl",
+    checkdocs=:none,
+    format=Documenter.HTML(;
+        assets=String["assets/custom.css"],
+        canonical="https::dankelley.github.io/GliderAnalysis.jl/dev/",
+        repolink="https://github.com/dankelley/GliderAnalysis.jl",
+        prettyurls=get(ENV, "CI", "false") == "true",
+        size_threshold=250_000,  # default is 200 KiB
+        size_threshold_warn=150_000,
+    ),
+    pages=[
+        "Home" => "index.md",
+        "Installation" => "installation.md",
+        "Examples" => "examples.md",
+        #"Data Types" => "data_types.md",
+        "Functions" => "functions.md",
+        "Changelog" => "changelog.md"
+        #"Developer Notes" => "developer_notes.md"
+    ],
+)
+
+deploydocs(;
+    repo="github.com/dankelley/GliderAnalysis.jl",
+    devbranch="main",
+    push_preview=true,
+)
