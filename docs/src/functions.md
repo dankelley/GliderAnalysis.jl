@@ -1,5 +1,6 @@
 # Functions
 
 ```@docs
-GliderAnalysis.transect_xy
+GliderAnalysis.gad
+GliderAnalysis.lonlat_xy
 ```
