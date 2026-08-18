@@ -13,7 +13,7 @@ end
 
 Print debugging information, if `debug`>0. Leading spaces are added in groups
 of 4, for each integer by which `debug` exceeds 1. This is called by most
-functions in this library.  See also [`increment_debug`](@ref).
+functions in this library.
 """
 function gad(debug::Integer=0, args...)
     if debug > 0
