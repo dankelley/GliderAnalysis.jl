@@ -26,7 +26,7 @@ Halifax Line on the Scotian Shelf, off Nova Scotia).
   counterclockwise angle of new coordinate system to an east-north system
   and `srs` (the coordinate transformation code). In the default case, the tuple
   defaults to `(longitude0=-63.507773, latitude0=44.623249, angle=-59.1879,
-  srs="EPSG:32620")`.  See Ref 1 for information on this default
+  srs="EPSG:32620")`.  See Ref. 1 for information on this default
   `srs` value.
 
 - `debug` an Integer indicating the degree of printing to be done during
@@ -35,9 +35,9 @@ Halifax Line on the Scotian Shelf, off Nova Scotia).
 
 # References
 
-1. https://epsg.io/32620 states the scope of EPSG:32620 to be navigation at
-   medium accuracy, with application to latitudes from 0N to 84N and longitudes
-   from 66W to 60W.
+1. [https://epsg.io/32620](https://epsg.io/32620) states the scope of
+   EPSG:32620 to be navigation at medium accuracy, with application to
+   latitudes from the equator to 84°N and longitudes from 66°W to 60°W.
 
 # Examples
 
