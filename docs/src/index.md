@@ -7,3 +7,4 @@ Shelf of eastern Canada.
 - Home: what you're reading now.
 - [Installation](https://dankelley.github.io/GliderAnalysis.jl/dev/installation/): how to install `GliderAnalysis`.
 - [Functions](https://dankelley.github.io/GliderAnalysis.jl/dev/functions/): functions provided in `GliderAnalyis`.
+- [Examples](https://dankelley.github.io/GliderAnalysis.jl/dev/examples/): some examples of common usage.
