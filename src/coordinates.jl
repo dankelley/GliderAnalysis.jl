@@ -8,12 +8,12 @@ using DataFrames, CSV, Plots
 using GMT: lonlat2xy, xy2lonlat
 
 """
-    transect_xy(longitude, latitude; case)
+    transect_xy(longitude, latitude; inverse=false, case=:halifax_line, debug=0)
 
-Convert `longitude` and `latitude` vectors to x and y vectors (in km).
-The transformation is governed by the `case` keyword (which
-has a default value that is useful along the Halifax Line
-on the Scotian Shelf, off Nova Scotia).
+Convert `longitude` and `latitude` vectors to x and y vectors (in km), or do
+the reverse (if `inverse=false`). The transformation is governed by the
+`case` keyword (which has a default value that is useful along the
+Halifax Line on the Scotian Shelf, off Nova Scotia).
 
 # Arguments
 
