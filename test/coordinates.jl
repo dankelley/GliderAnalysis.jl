@@ -5,6 +5,6 @@ using GliderAnalysis, DataFrames, CSV, Test
     traj = CSV.read(file, DataFrame)
     xy = transect_xy(traj.longitude, traj.latitude)
     lonlat = transect_xy(xy[:, 1], xy[:, 2]; inverse=true)
-    lonlat[:, 1] ≈ traj.longitude
-    lonlat[:, 2] ≈ traj.latitude
+    @test lonlat[:, 1] ≈ traj.longitude
+    @test lonlat[:, 2] ≈ traj.latitude
 end
