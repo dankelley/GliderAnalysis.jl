@@ -67,7 +67,7 @@ function transect_xy(longitude, latitude; inverse=false, case=:halifax_line, deb
         error("if case is not a Symbol, then it must be a NamedTuple")
     end
     length(case) == 4 || error("case must be a NamedTuple with 4 elements")
-    if (:angle, :latitude0, :longitude0, :srs) != sort(keys(case))
+    if (:angle, :latitude0, :longitude0, :srs) != sort(collect(keys(case)))
         error("case elements must be named 'longitude0`, `latitude0`, `angle` and `srs`")
     end
     xy0 = 0.001 * lonlat2xy([case.longitude0 case.latitude0], t_srs=case.srs)
