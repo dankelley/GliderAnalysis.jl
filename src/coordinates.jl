@@ -7,7 +7,7 @@ using GMT: lonlat2xy, xy2lonlat
 Convert `longitude` and `latitude` vectors to a matrix with columns equal to x
 and y (in km). The transformation is governed by the `case` keyword (which has
 a default value that is useful along the Halifax Line on the Scotian Shelf, off
-Nova Scotia). See also [`lonlat_xy`](@ref), which handles the reverse
+Nova Scotia). See also [`xy_lonlat`](@ref), which handles the reverse
 operation.
 
 # Arguments
@@ -87,7 +87,7 @@ export lonlat_xy
 Convert `x` and `y` vectors (in km) to a matrix with column 1 being `longitude`
 and column 2 being `latitude`. The transformation is governed by the `case`
 keyword (which has a default value that is useful along the Halifax Line on the
-Scotian Shelf, off Nova Scotia). See also [`xy_lonlat`](@ref), which handles
+Scotian Shelf, off Nova Scotia). See also [`lonlat_xy`](@ref), which handles
 the reverse operation.
 
 # Arguments
