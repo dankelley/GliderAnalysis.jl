@@ -11,7 +11,6 @@ file = joinpath(dirname(dirname(pathof(GliderAnalysis))), "data", "sbloom_2023_t
 traj = CSV.read(file, DataFrame);
 
 xy = lonlat_xy(traj.longitude, traj.latitude)
-ll = lonlat_xy(xy[:, 1], xy[:, 2]; inverse=true)
 
 fs = 7
 KW = (framestyle=:box, tickdirection=:out, label=false, ms=1, guidefontsize=fs, tickfontsize=fs, titlefontsize=fs)
