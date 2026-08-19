@@ -1,10 +1,3 @@
-# Examples
-
-## Transect lon-lat to x-y calculation
-
-![Transect coordinate system](lonlat_xy.png)
-
-```julia
 using GliderAnalysis, Plots, DataFrames, CSV
 
 file = joinpath(dirname(dirname(pathof(GliderAnalysis))),
@@ -23,6 +16,4 @@ Plots.vline!([0], lwd=3, color=:red, label=false)
 Plots.plot(a, b, layout=(1, 2), size=(800, 500))
 
 savefig("lonlat_xy.png")
-```
-
 
