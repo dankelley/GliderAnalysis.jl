@@ -10,7 +10,7 @@ GMT = "5752ebe1-31b9-557e-87aa-f909b540aa54"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
-CSV = "0.10.16"
+CSV = "0.10.16, 1.1"
 DataFrames = "1.8.2"
 GMT = "1.42.2"
 Plots = "1.41.0"
